@@ -1,0 +1,17 @@
+<?php
+$inputDate = $_GET['inputDate'];
+$conversionType = $_GET['conversionType'];
+
+if ($conversionType == "hijri-to-gregorian") {
+    $date = new DateTime($inputDate, new DateTimeZone('Asia/Kuala_Lumpur'));
+    $date->setTimeZone(new DateTimeZone('UTC'));
+    $outputDate = $date->format('Y-m-d');
+} else if ($conversionType == "gregorian-to-hijri") {
+    $date = new DateTime($inputDate, new DateTimeZone('UTC'));
+    $date->setTimeZone(new DateTimeZone('Asia/Kuala_Lumpur'));
+    $timestamp = $date->getTimestamp();
+    $outputDate = date('d-m-Y', $timestamp);
+}
+
+echo $outputDate;
+?>

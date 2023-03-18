@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Date Conversion</title>
+    <script>
+        function convertDate() {
+            var inputDate = document.getElementById("input-date").value;
+            var conversionType = document.getElementById("conversion-type").value;
+
+            if (inputDate == "") {
+                alert("Please enter a valid date");
+                return false;
+            }
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("output-date").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "convert_date.php?inputDate=" + inputDate + "&conversionType=" + conversionType, true);
+            xmlhttp.send();
+        }
+    </script>
+</head>
+<body>
+    <h1>Date Conversion</h1>
+    <label for="input-date">Enter date:</label>
+    <input type="text" id="input-date" name="input-date"><br><br>
+    <label for="conversion-type">Select conversion type:</label>
+    <select id="conversion-type" name="conversion-type">
+        <option value="hijri-to-gregorian">Hijri to Gregorian</option>
+        <option value="gregorian-to-hijri">Gregorian to Hijri</option>
+    </select><br><br>
+    <button type="button" onclick="convertDate()">Convert</button><br><br>
+    <label for="output-date">Output:</label>
+    <div id="output-date"></div>
+</body>
+</html>
